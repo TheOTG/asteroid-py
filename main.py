@@ -1,4 +1,5 @@
 import pygame
+import sys
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, ASTEROID_MIN_RADIUS, ASTEROID_KINDS, ASTEROID_SPAWN_RATE, ASTEROID_MAX_RADIUS
 from player import Player
 from asteroid import Asteroid
@@ -31,6 +32,12 @@ def main():
         rect = pygame.Surface.fill(screen, pygame.Color("black"))
 
         updatable.update(dt)
+
+        for asteroid in asteroids:
+            if asteroid.is_collide(player):
+                print("Game over!")
+                sys.exit()
+
         for thing in drawable:
             thing.draw(screen)
 
