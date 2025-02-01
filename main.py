@@ -9,18 +9,23 @@ def main():
     print("Screen height:", SCREEN_HEIGHT)
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    surface = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     dt = 0
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    updatable = pygame.sprite.Group(player)
+    drawable = pygame.sprite.Group(player)
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
 
-        surface = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
         rect = pygame.Surface.fill(surface, pygame.Color("black"))
-        player.draw(screen)
+
+        updatable.update(dt)
+        for thing in drawable:
+            thing.draw(screen)
 
         pygame.display.flip()
         
